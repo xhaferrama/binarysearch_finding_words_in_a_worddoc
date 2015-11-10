@@ -1,0 +1,126 @@
+import time
+
+
+#The following function read_words has been taken from the Data Structure assignment website; we are allowed to use this function with Dr. Jan's permission
+def read_words(words_file_name):
+    '''This function opens a file with the name in 'words_file', reads in
+    the contents and returns a list of the words, stripped of whitespace.
+    pre: none, as this function handles IOError for when the file is not there gracefully
+    post: returns the list of words in the file, which is empty on an open fail. '''
+    words_list =[]
+    try:
+        open_file = open(words_file_name, 'r')
+        contents = open_file.readlines()
+
+        # replace punctuation with a blank space
+        punctuation = ['(', ')', '?', ':', ';', ',', '.', '!', '/', '"', "'", "-"]
+        for i in punctuation:
+            for j in range(len(contents)):
+                contents[j] = contents[j].replace(i,"")
+
+        for i in range(len(contents)):
+            contents[i].lower()
+            words_list.extend((contents[i].lower()).split())
+        open_file.close()
+    except IOError:
+        print("File does not exist! Try again.")
+    return words_list
+
+
+#-------------------------------------------------------------------------------
+
+def linear_search(word_search, whole_document):
+    """This function takes the entire list and counts the times a certain word appears in it.
+    Pre: a list of words must be given
+    Post: returns the amount of time a word appears in the list."""
+
+    count = 0 #will keep count of the word appearing
+    for i in whole_document: #the whole_document is known as list
+        if i == word_search.lower():
+            count += 1
+    return word_search + ' appears ' + str(count) + ' times.'
+
+#-------------------------------------------------------------------------------
+
+def list_top_part(list_split_top):
+    """Takes list and splits it in half
+
+    Pre: a list must be given as a parameter
+    Post: Split list in half and makes a new list
+    with a random variable name that is composed of the top half of the list.
+    Top half is defined as n-z"""
+    list_split_top = list_split_top[(len(list_split_top)//2) : len(list_split_top)] # n-z # using slices and denominator, it will make sure the list that is given is split in two equal parts
+    return list_split_top
+
+#-------------------------------------------------------------------------------
+
+def list_bottom_part(list_split_top): # using slices and denominator, it will make sure the list that is given is split in two equal parts
+    """Takes list and splits it in half
+
+    Pre: a list must be given as a parameter as parameter
+    Post: Split list in half and makes a new list
+    with a random variable name that is composed of the bottom half of the list.
+    Bottom half is defined as a-m"""
+
+    list_split_top = list_split_top[ 0 : (len(list_split_top)//2)]
+    return list_split_top
+#-------------------------------------------------------------------------------
+
+def search_for_letter(word, l, index):
+
+    while True == True:
+        if word[index] == l[(len(l)//2)]:
+            print 'it is the letter ' + l[(len(l)//2)]
+            return 'Yea'
+
+        elif word[index] > l[(len(l)//2)]:
+            list_name = list_top_part(list_name)
+            print l
+
+        elif word[index] < l[(len(l)//2)]:
+           list_name = list_bottom_part(l)
+           print l
+#-------------------------------------------------------------------------------
+
+def if_words_end_up_with_same_name(word, l):
+    '''This function has two parameters and appends the word that is found on the document to the empty list'''
+
+    word_same_length_list = []
+    for i in l:
+        if len(word) == len(i):
+            word_same_length_list.append(i)
+        else:
+            pass
+    return word_same_length_list
+#-------------------------------------------------------------------------------
+
+def binary_search(word):
+    """This function finds the word you are looking for using a binary sequence
+    Pre: A word is given to be found
+    Post: Tells the number of times in total the word is appeared in the text """
+
+    one_more_list_ughh = []
+    length_list = if_words_end_up_with_same_name(word, sorted_list)
+    for j in range(len(length_list)):
+        if length_list[j] == word[0:(len(word))]:
+            one_more_list_ughh.append(length_list[j])
+    return 'The word ' + str(word_search) + ' appears ' + str(len(one_more_list_ughh)) + ' times!'
+
+#-------------------------------------------------------------------------------
+
+alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+word_search = raw_input('What is the word you are looking for Mr/Mrs. User?')
+
+sorted_list = sorted(read_words('gettysburg.txt'))
+
+
+start1 = time.time()
+print binary_search(word_search)
+stop1= time.time()
+print ('It takes a total time of ' + str(stop1 - start1) + ' for binary.')
+start = time.time()
+print linear_search(word_search, read_words('gettysburg.txt'))
+stop = time.time()
+print ('It takes a total time of ' + str(stop - start) + ' for linear.')
+
